@@ -38,34 +38,34 @@
         transition:0.6s;
     }
 
-    .letter{
+   .letter{
     position:absolute;
-    width:85%;              /* chiếm 85% phong thư */
-    height:75%;
+    width:92%;          /* gần full chiều ngang */
+    height:85%;         /* cao hơn */
     background:white;
     top:50%;
     left:50%;
-    transform:translate(-50%, 40px);
-    padding:35px;
+    transform:translate(-50%, 50px);
+    padding:40px;
     box-sizing:border-box;
-    border-radius:18px;     /* bo góc mềm hơn */
-    font-size:18px;
+    border-radius:20px;
+    font-size:19px;
     line-height:1.8;
     color:#444;
     opacity:0;
     transition:0.8s;
-    box-shadow:0 20px 40px rgba(0,0,0,0.2);  /* bóng đẹp hơn */
+    box-shadow:0 25px 50px rgba(0,0,0,0.25);
     }
-
 
     .open::before{
         transform:rotateX(180deg);
     }
 
-    .open .letter{
-    transform:translate(-50%, -200px);
+   .open .letter{
+    transform:translate(-50%, -220px);
     opacity:1;
     }
+
 
 
     .letter p{
