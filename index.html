@@ -19,7 +19,7 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     overflow: hidden;
 }
 
@@ -29,7 +29,8 @@ body {
     width: 300px;
     height: 200px;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: 0.3s;
+    perspective: 1000px;
 }
 
 .envelope-wrapper:hover {
@@ -41,13 +42,12 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: var(--dark-red);
+    background: var(--dark-red);
     border-radius: 0 0 10px 10px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    z-index: 1;
 }
 
-/* Nắp phong bì */
+/* Nắp */
 .envelope::before {
     content: "";
     position: absolute;
@@ -57,11 +57,11 @@ body {
     border-right: 150px solid transparent;
     border-top: 110px solid var(--primary-red);
     transform-origin: top;
-    transition: all 0.6s ease-in-out;
+    transition: 0.6s ease;
     z-index: 5;
 }
 
-/* Mặt trước phong bì */
+/* Mặt trước */
 .envelope::after {
     content: "";
     position: absolute;
@@ -77,27 +77,25 @@ body {
 /* ===== TỜ THƯ ===== */
 .letter {
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     left: 50%;
-    transform: translateX(-50%) scale(0.9);
-    width: 90%;
-    height: 85%;
+    transform: translateX(-50%);
+    width: 92%;
+    height: 150px;
     background: var(--paper-color);
     border-radius: 8px;
     padding: 20px;
     box-sizing: border-box;
-    transition: all 0.7s ease-in-out;
+    transition: 0.7s ease;
     z-index: 2;
 
     opacity: 0;
     visibility: hidden;
 
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .letter-content {
@@ -109,8 +107,6 @@ body {
 .letter-content b {
     font-size: 16px;
     color: #ff1e56;
-    display: block;
-    margin-bottom: 10px;
 }
 
 /* ===== KHI MỞ ===== */
@@ -120,14 +116,12 @@ body {
 }
 
 .envelope-wrapper.open .letter {
-    bottom: 110px;
-    height: 380px;
-    width: 320px;
+    bottom: 60px;
+    height: 260px;
     opacity: 1;
     visibility: visible;
     z-index: 10;
-    transform: translateX(-50%) scale(1.05);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 
 /* ===== TIM BAY ===== */
@@ -140,18 +134,17 @@ body {
 }
 
 @keyframes float {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    from { transform: translateY(0) rotate(0deg); opacity: 1; }
+    to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
 }
 
 .hint {
     position: absolute;
-    bottom: -50px;
+    bottom: -45px;
     width: 100%;
     text-align: center;
-    color: #720917;
     font-weight: bold;
-    font-size: 14px;
+    color: #720917;
 }
 </style>
 </head>
@@ -166,15 +159,16 @@ body {
     <div class="envelope">
         <div class="letter">
             <div class="letter-content">
-                <b>Valentine này dành riêng cho chị 🌸</b>
-                Có những điều em không nói thường xuyên, nhưng hôm nay em muốn viết ra để chị biết…
-                <br><br>
-                Cảm ơn chị vì đã luôn ở đó — lắng nghe em, che chở em theo cách dịu dàng nhất.
-                <br><br>
-                Với em, chị không chỉ là người thân, mà còn là chỗ dựa bình yên giữa cuộc sống.
-                <br><br>
-                Em mong chị luôn cười thật nhiều, luôn được yêu thương thật nhiều.
-                <br><br>
+                <b>Valentine này dành riêng cho chị 🌸</b><br><br>
+                Cảm ơn chị vì đã luôn ở đó — lắng nghe em,  
+                che chở em theo cách dịu dàng nhất.<br><br>
+
+                Với em, chị không chỉ là người yêu,  
+                mà còn là chỗ dựa bình yên giữa cuộc sống.<br><br>
+
+                Em mong chị luôn cười thật nhiều,  
+                luôn được yêu thương thật nhiều.<br><br>
+
                 <b>Valentine hạnh phúc nhé chị 💖<br>
                 Em thương chị rất nhiều.</b>
             </div>
@@ -184,33 +178,35 @@ body {
 </div>
 
 <script>
+let heartInterval;
+
 function toggleLetter() {
     const wrapper = document.querySelector(".envelope-wrapper");
+    const music = document.getElementById("bgMusic");
+
     wrapper.classList.toggle("open");
 
-    const music = document.getElementById("bgMusic");
     if (wrapper.classList.contains("open")) {
-        music.play().catch(() => {});
+        music.play().catch(()=>{});
+        heartInterval = setInterval(createHeart, 400);
     } else {
         music.pause();
         music.currentTime = 0;
+        clearInterval(heartInterval);
     }
 }
 
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
-    const icons = ["❤️","💖","💗","🌸","✨","🌹"];
+    const icons = ["❤️","💖","💗","🌸","✨"];
     heart.innerText = icons[Math.floor(Math.random()*icons.length)];
     heart.style.left = Math.random()*100 + "vw";
     heart.style.fontSize = (Math.random()*15+15) + "px";
     heart.style.animationDuration = (Math.random()*3+5) + "s";
-    heart.style.opacity = Math.random();
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 }
-
-setInterval(createHeart, 400);
 </script>
 
 </body>
