@@ -23,11 +23,11 @@ body {
     overflow: hidden;
 }
 
-/* ===== CONTAINER ===== */
+/* ===== CONTAINER TO HƠN ===== */
 .envelope-wrapper {
     position: relative;
-    width: 300px;
-    height: 200px;
+    width: 380px;   /* tăng từ 300px */
+    height: 260px;  /* tăng từ 200px */
     cursor: pointer;
     transition: 0.3s;
     perspective: 1000px;
@@ -43,8 +43,8 @@ body {
     width: 100%;
     height: 100%;
     background: var(--dark-red);
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
 /* Nắp */
@@ -53,9 +53,9 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 110px solid var(--primary-red);
+    border-left: 190px solid transparent;
+    border-right: 190px solid transparent;
+    border-top: 140px solid var(--primary-red);
     transform-origin: top;
     transition: 0.6s ease;
     z-index: 5;
@@ -67,24 +67,24 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    border-left: 150px solid #ff758c;
-    border-right: 150px solid #ff758c;
-    border-bottom: 100px solid #ff5c7a;
-    border-radius: 0 0 10px 10px;
+    border-left: 190px solid #ff758c;
+    border-right: 190px solid #ff758c;
+    border-bottom: 130px solid #ff5c7a;
+    border-radius: 0 0 12px 12px;
     z-index: 4;
 }
 
-/* ===== TỜ THƯ ===== */
+/* ===== TỜ THƯ TO HƠN ===== */
 .letter {
     position: absolute;
-    bottom: 15px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 92%;
-    height: 150px;
+    width: 94%;
+    height: 190px; /* cao hơn */
     background: var(--paper-color);
-    border-radius: 8px;
-    padding: 20px;
+    border-radius: 10px;
+    padding: 25px;
     box-sizing: border-box;
     transition: 0.7s ease;
     z-index: 2;
@@ -99,13 +99,13 @@ body {
 }
 
 .letter-content {
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.7;
     color: #d90429;
 }
 
 .letter-content b {
-    font-size: 16px;
+    font-size: 18px;
     color: #ff1e56;
 }
 
@@ -116,12 +116,12 @@ body {
 }
 
 .envelope-wrapper.open .letter {
-    bottom: 60px;
-    height: 260px;
+    bottom: 90px;
+    height: 320px;   /* lớn hơn khi mở */
     opacity: 1;
     visibility: visible;
     z-index: 10;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
 }
 
 /* ===== TIM BAY ===== */
@@ -140,7 +140,7 @@ body {
 
 .hint {
     position: absolute;
-    bottom: -45px;
+    bottom: -50px;
     width: 100%;
     text-align: center;
     font-weight: bold;
@@ -161,13 +161,16 @@ body {
             <div class="letter-content">
                 <b>Valentine này dành riêng cho chị 🌸</b><br><br>
                 Cảm ơn chị vì đã luôn ở đó — lắng nghe em,  
-                che chở em theo cách dịu dàng nhất.
-                Với em, chị không chỉ là người yêu,  
-                mà còn là chỗ dựa bình yên giữa cuộc sống.
+                che chở em theo cách dịu dàng nhất.<br><br>
+
+                Với em, chị không chỉ là người thân,  
+                mà còn là chỗ dựa bình yên giữa cuộc sống.<br><br>
+
                 Em mong chị luôn cười thật nhiều,  
-                luôn được yêu thương thật nhiều.
-                <b>Valentine hạnh phúc nhé chị 💖
-                Em thương chị rất nhiều.
+                luôn được yêu thương thật nhiều.<br><br>
+
+                <b>Valentine hạnh phúc nhé chị 💖<br>
+                Em thương chị rất nhiều.</b>
             </div>
         </div>
     </div>
@@ -199,7 +202,7 @@ function createHeart() {
     const icons = ["❤️","💖","💗","🌸","✨"];
     heart.innerText = icons[Math.floor(Math.random()*icons.length)];
     heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = (Math.random()*15+15) + "px";
+    heart.style.fontSize = (Math.random()*18+18) + "px";
     heart.style.animationDuration = (Math.random()*3+5) + "s";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
