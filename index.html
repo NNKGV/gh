@@ -1,96 +1,27 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>14/2 💌</title>
-<style>
-    body{
-        margin:0;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:linear-gradient(135deg,#ffc1cc,#ffe6eb);
-        font-family: 'Segoe UI', sans-serif;
-    }
-
-    .envelope{
-        position:relative;
-        width:320px;
-        height:220px;
-        background:#ff6f91;
-        cursor:pointer;
-        transition:0.6s;
-        border-radius:8px;
-    }
-
-    .envelope::before{
-        content:'';
-        position:absolute;
-        top:0;
-        left:0;
-        width:0;
-        height:0;
-        border-left:160px solid transparent;
-        border-right:160px solid transparent;
-        border-bottom:110px solid #ff8fab;
-        transform-origin:top;
-        transition:0.6s;
-    }
-
-  .letter{
-    position:absolute;
-    width:92%;
-    background:white;
-
-    top:50%;
-    left:50%;
-    transform:translate(-50%, 50px);
-
-    padding:40px;
-    box-sizing:border-box;
-    border-radius:20px;
-
-    font-size:19px;
-    line-height:1.8;
-    color:#444;
-
-    opacity:0;
-    transition:0.8s;
-    box-shadow:0 25px 50px rgba(0,0,0,0.25);
-
-    text-align:center;
-    }
-
-    .open .letter{
-    transform:translate(-50%, -180px);
-    opacity:1;
-    }
-
-
-
-
-    .letter p{
-        margin:0;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Valentine 💌</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="envelope" onclick="openLetter(this)">
+<div class="envelope" id="envelope">
+    <div class="flap"></div>
+
     <div class="letter">
-        <p>
-            14/2 này anh chỉ muốn nói rằng…Cảm ơn em vì đã luôn ở bên cạnh anh. Những điều nhỏ bé em làm mỗi ngày 
-            khiến cuộc sống của anh trở nên ấm áp hơn rất nhiều. Mong rằng chúng ta sẽ còn cùng nhau  trải qua thật nhiều ngày 14/2 nữa ❤️
-        </p>
+        14/2 này anh chỉ muốn nói rằng... 💖
+        <br><br>
+        Cảm ơn em vì đã luôn ở bên cạnh anh.
+        Những điều nhỏ bé em làm mỗi ngày
+        khiến cuộc sống của anh trở nên ấm áp hơn rất nhiều.
+        <br><br>
+        Mong rằng chúng ta sẽ còn cùng nhau
+        trải qua thật nhiều ngày 14/2 nữa ❤️
     </div>
 </div>
 
-<script>
-function openLetter(element){
-    element.classList.toggle("open");
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
