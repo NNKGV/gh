@@ -1,27 +1,155 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Valentine 💌</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Love Letter</title>
+
+<style>
+
+/* =========================
+   1. CÀI ĐẶT CHUNG CHO BODY
+========================= */
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    font-family: 'Segoe UI', sans-serif;
+    overflow:hidden;
+}
+
+/* =========================
+   2. PHONG BÌ THƯ
+========================= */
+.envelope{
+    position:relative;
+    width:320px;
+    height:220px;
+    background:#ff4d6d;
+    cursor:pointer;
+    transition:transform 0.5s;
+}
+
+/* Nắp thư (tam giác phía trên) */
+.envelope::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    border-left:160px solid transparent;
+    border-right:160px solid transparent;
+    border-bottom:110px solid #ff1e56;
+    transform-origin:top;
+    transition:transform 1s ease;
+}
+
+/* =========================
+   3. TỜ GIẤY TRẮNG BÊN TRONG
+========================= */
+.letter{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:white;
+    padding:20px;
+    box-sizing:border-box;
+    transform:translateY(100%);
+    transition:transform 1s ease;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    font-size:18px;
+    color:#ff4d6d;
+    border-radius:5px;
+}
+
+/* Khi mở thư */
+.envelope.open::before{
+    transform:rotateX(180deg);
+}
+
+.envelope.open .letter{
+    transform:translateY(-120%);
+}
+
+/* =========================
+   4. HIỆU ỨNG TRÁI TIM BAY
+========================= */
+.heart{
+    position:absolute;
+    bottom:-20px;
+    font-size:20px;
+    animation:float 5s linear infinite;
+    color:white;
+}
+
+/* Animation trái tim bay lên */
+@keyframes float{
+    0%{
+        transform:translateY(0) scale(1);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-100vh) scale(1.5);
+        opacity:0;
+    }
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="envelope" id="envelope">
-    <div class="flap"></div>
-
+<!-- =========================
+     5. PHONG BÌ (CLICK ĐỂ MỞ)
+========================= -->
+<div class="envelope" onclick="openLetter()">
     <div class="letter">
-        14/2 này anh chỉ muốn nói rằng... 💖
-        <br><br>
-        Cảm ơn em vì đã luôn ở bên cạnh anh.
-        Những điều nhỏ bé em làm mỗi ngày
-        khiến cuộc sống của anh trở nên ấm áp hơn rất nhiều.
-        <br><br>
-        Mong rằng chúng ta sẽ còn cùng nhau
-        trải qua thật nhiều ngày 14/2 nữa ❤️
+        💖 Happy Valentine 💖 <br><br>
+        Chúc em luôn xinh đẹp, hạnh phúc  
+        và mãi ở bên anh nhé ❤️
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+
+/* =========================
+   6. HÀM MỞ THƯ
+========================= */
+function openLetter(){
+    document.querySelector(".envelope").classList.toggle("open");
+}
+
+/* =========================
+   7. TẠO TRÁI TIM BAY TỰ ĐỘNG
+========================= */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+
+    // Vị trí ngang ngẫu nhiên
+    heart.style.left = Math.random() * 100 + "vw";
+
+    // Thời gian bay ngẫu nhiên
+    heart.style.animationDuration = (3 + Math.random()*3) + "s";
+
+    document.body.appendChild(heart);
+
+    // Xóa trái tim sau khi bay xong để tránh lag
+    setTimeout(()=>{
+        heart.remove();
+    },5000);
+}
+
+// Cứ 300ms tạo 1 trái tim
+setInterval(createHeart,300);
+
+</script>
+
 </body>
 </html>
