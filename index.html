@@ -8,21 +8,24 @@
 <style>
 
 /* =========================
-   1. CÀI ĐẶT CHUNG CHO BODY
+   1. BODY
 ========================= */
-body{
+html, body{
     margin:0;
-    height:100vh;
+    height:100%;
+    overflow-x:hidden; /* CHẶN TRÀN NGANG */
+}
+
+body{
     display:flex;
     justify-content:center;
     align-items:center;
     background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    font-family: 'Segoe UI', sans-serif;
-    overflow:hidden;
+    font-family:'Segoe UI', sans-serif;
 }
 
 /* =========================
-   2. PHONG BÌ THƯ
+   2. PHONG BÌ
 ========================= */
 .envelope{
     position:relative;
@@ -31,9 +34,11 @@ body{
     background:#ff4d6d;
     cursor:pointer;
     transition:transform 0.5s;
+    overflow:hidden; /* tránh tràn */
+    border-radius:10px;
 }
 
-/* Nắp thư (tam giác phía trên) */
+/* Nắp thư */
 .envelope::before{
     content:"";
     position:absolute;
@@ -44,10 +49,11 @@ body{
     border-bottom:110px solid #ff1e56;
     transform-origin:top;
     transition:transform 1s ease;
+    z-index:2;
 }
 
 /* =========================
-   3. TỜ GIẤY TRẮNG BÊN TRONG
+   3. TỜ GIẤY
 ========================= */
 .letter{
     position:absolute;
@@ -58,16 +64,14 @@ body{
     box-sizing:border-box;
     transform:translateY(100%);
     transition:transform 1s ease;
-    display:flex;
-    justify-content:center;
-    align-items:center;
     text-align:center;
-    font-size:18px;
+    font-size:16px;
     color:#ff4d6d;
     border-radius:5px;
+    overflow-y:auto;
 }
 
-/* Khi mở thư */
+/* Khi mở */
 .envelope.open::before{
     transform:rotateX(180deg);
 }
@@ -77,24 +81,24 @@ body{
 }
 
 /* =========================
-   4. HIỆU ỨNG TRÁI TIM BAY
+   4. TIM BAY
 ========================= */
 .heart{
-    position:absolute;
+    position:fixed; /* đổi sang fixed */
     bottom:-20px;
     font-size:20px;
-    animation:float 5s linear infinite;
+    animation:float linear forwards;
     color:white;
+    pointer-events:none;
 }
 
-/* Animation trái tim bay lên */
 @keyframes float{
     0%{
         transform:translateY(0) scale(1);
         opacity:1;
     }
     100%{
-        transform:translateY(-100vh) scale(1.5);
+        transform:translateY(-110vh) scale(1.5);
         opacity:0;
     }
 }
@@ -104,58 +108,50 @@ body{
 
 <body>
 
-<!-- =========================
-     5. PHONG BÌ (CLICK ĐỂ MỞ)
-========================= -->
 <div class="envelope" onclick="openLetter()">
     <div class="letter">
-        Valentine năm nay, em muốn gửi đến chị những lời chúc đặc biệt nhất.
-
-Có thể Valentine thường dành cho các cặp đôi, nhưng với em, đây còn là dịp để nói lời cảm ơn đến người luôn yêu thương và quan tâm em nhiều như chị. Cảm ơn chị vì đã luôn ở bên, lắng nghe những câu chuyện vụn vặt của em, cho em lời khuyên mỗi khi em bối rối, và cả những lần âm thầm bảo vệ em nữa.
-
-Chị không chỉ là chị gái, mà còn là người bạn, là chỗ dựa, là người khiến em cảm thấy gia đình mình thật ấm áp. Em thật sự may mắn vì có chị trong cuộc đời.
-
-Valentine này, em chúc chị luôn xinh đẹp, hạnh phúc và sớm gặp được người yêu thương chị thật lòng (nếu chị chưa có 😉). Còn nếu có rồi thì mong chị sẽ luôn được trân trọng và yêu chiều.
-
-Dù sau này mỗi người có cuộc sống riêng, em vẫn mong tình chị em mình mãi thân thiết như bây giờ.
-
-Yêu chị nhiều 💕
+        <b>Valentine năm nay, em muốn gửi đến chị những lời chúc đặc biệt nhất.</b>
+        <br><br>
+        Có thể Valentine thường dành cho các cặp đôi, nhưng với em, đây còn là dịp để nói lời cảm ơn đến người luôn yêu thương và quan tâm em nhiều như chị.
+        <br><br>
+        Cảm ơn chị vì đã luôn ở bên, lắng nghe những câu chuyện vụn vặt của em, cho em lời khuyên mỗi khi em bối rối, và cả những lần âm thầm bảo vệ em nữa.
+        <br><br>
+        Chị không chỉ là chị gái, mà còn là người bạn, là chỗ dựa, là người khiến em cảm thấy gia đình mình thật ấm áp.
+        <br><br>
+        Valentine này, em chúc chị luôn xinh đẹp, hạnh phúc và sớm gặp được người yêu thương chị thật lòng.
+        <br><br>
+        <b>Yêu chị nhiều 💕</b>
     </div>
 </div>
 
 <script>
 
-/* =========================
-   6. HÀM MỞ THƯ
-========================= */
+/* MỞ THƯ */
 function openLetter(){
     document.querySelector(".envelope").classList.toggle("open");
 }
 
-/* =========================
-   7. TẠO TRÁI TIM BAY TỰ ĐỘNG
-========================= */
+/* TẠO TIM */
 function createHeart(){
     const heart = document.createElement("div");
     heart.classList.add("heart");
     heart.innerHTML = "💗";
 
-    // Vị trí ngang ngẫu nhiên
-    heart.style.left = Math.random() * 100 + "vw";
+    /* dùng % thay vì vw */
+    heart.style.left = Math.random() * 100 + "%";
 
-    // Thời gian bay ngẫu nhiên
+    /* thời gian bay ngẫu nhiên */
     heart.style.animationDuration = (3 + Math.random()*3) + "s";
 
     document.body.appendChild(heart);
 
-    // Xóa trái tim sau khi bay xong để tránh lag
     setTimeout(()=>{
         heart.remove();
-    },5000);
+    },6000);
 }
 
-// Cứ 300ms tạo 1 trái tim
-setInterval(createHeart,300);
+/* mỗi 400ms tạo 1 tim */
+setInterval(createHeart,400);
 
 </script>
 
