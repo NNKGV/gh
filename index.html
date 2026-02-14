@@ -1,215 +1,217 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Love Letter</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Love Letter</title>
 
-    <style>
-        :root {
-            --primary-red: #ff4d6d;
-            --dark-red: #c9184a;
-            --paper-color: #ffffff;
-        }
+<style>
+:root {
+    --primary-red: #ff4d6d;
+    --dark-red: #c9184a;
+    --paper-color: #ffffff;
+}
 
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
-        }
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
 
-        /* ===== CONTAINER CHÍNH ===== */
-        .envelope-wrapper {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+/* ===== CONTAINER ===== */
+.envelope-wrapper {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
 
-        .envelope-wrapper:hover {
-            transform: translateY(-5px);
-        }
+.envelope-wrapper:hover {
+    transform: translateY(-5px);
+}
 
-        /* Thân phong bì */
-        .envelope {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background-color: var(--dark-red);
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
+/* ===== PHONG BÌ ===== */
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-red);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    z-index: 1;
+}
 
-        /* Nắp phong bì (Cái tam giác phía trên) */
-        .envelope::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-top: 110px solid var(--primary-red);
-            transform-origin: top;
-            transition: all 0.6s ease-in-out;
-            z-index: 5; /* Nằm trên cùng khi đóng */
-        }
+/* Nắp phong bì */
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 110px solid var(--primary-red);
+    transform-origin: top;
+    transition: all 0.6s ease-in-out;
+    z-index: 5;
+}
 
-        /* Mặt trước phong bì (Hình tam giác dưới che bức thư) */
-        .envelope::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            border-left: 150px solid #ff758c;
-            border-right: 150px solid #ff758c;
-            border-bottom: 100px solid #ff5c7a;
-            border-radius: 0 0 10px 10px;
-            z-index: 4; /* Che tờ thư khi nó ở trong */
-        }
+/* Mặt trước phong bì */
+.envelope::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-left: 150px solid #ff758c;
+    border-right: 150px solid #ff758c;
+    border-bottom: 100px solid #ff5c7a;
+    border-radius: 0 0 10px 10px;
+    z-index: 4;
+}
 
-        /* ===== TỜ THƯ ===== */
-        .letter {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            height: 85%;
-            background: var(--paper-color);
-            border-radius: 8px;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: all 0.7s ease-in-out;
-            z-index: 2; /* Nằm dưới nắp và mặt trước */
-            opacity: 0.5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+/* ===== TỜ THƯ ===== */
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    width: 90%;
+    height: 85%;
+    background: var(--paper-color);
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: all 0.7s ease-in-out;
+    z-index: 2;
 
-        .letter-content {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #d90429;
-            width: 100%;
-        }
+    opacity: 0;
+    visibility: hidden;
 
-        .letter-content b {
-            font-size: 16px;
-            color: #ff1e56;
-            display: block;
-            margin-bottom: 10px;
-        }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
 
-        /* ===== KHI MỞ PHONG BÌ ===== */
-        /* 1. Lật nắp lên */
-        .envelope-wrapper.open .envelope::before {
-            transform: rotateX(180deg);
-            z-index: 0; /* Đẩy nắp ra sau để thư trồi lên không bị vướng */
-        }
+.letter-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #d90429;
+}
 
-        /* 2. Đẩy tờ thư lên */
-        .envelope-wrapper.open .letter {
-            bottom: 100px; /* Trồi lên khỏi phong bì */
-            height: 380px; /* Kéo dài tờ thư ra */
-            width: 320px;  /* Có thể to hơn phong bì một chút */
-            opacity: 1;
-            z-index: 10;   /* Nhảy lên trên tất cả mọi thứ */
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
+.letter-content b {
+    font-size: 16px;
+    color: #ff1e56;
+    display: block;
+    margin-bottom: 10px;
+}
 
-        /* Hiệu ứng tim bay */
-        .heart {
-            position: fixed;
-            bottom: -20px;
-            animation: float linear forwards;
-            pointer-events: none;
-            z-index: 999;
-        }
+/* ===== KHI MỞ ===== */
+.envelope-wrapper.open .envelope::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
 
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
+.envelope-wrapper.open .letter {
+    bottom: 110px;
+    height: 380px;
+    width: 320px;
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
 
-        .hint {
-            position: absolute;
-            bottom: -50px;
-            width: 100%;
-            text-align: center;
-            color: #720917;
-            font-weight: bold;
-            font-size: 14px;
-        }
-    </style>
+/* ===== TIM BAY ===== */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    animation: float linear forwards;
+    pointer-events: none;
+    z-index: 999;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+.hint {
+    position: absolute;
+    bottom: -50px;
+    width: 100%;
+    text-align: center;
+    color: #720917;
+    font-weight: bold;
+    font-size: 14px;
+}
+</style>
 </head>
 
 <body>
 
-    <audio id="bgMusic" loop>
-        <source src="mer _ track 2 giấc mơ từng rất thơ (ý thơ người ví em là ánh trăng lẻ loi...) ft Quang Huy - mer.mp3" type="audio/mpeg">
-    </audio>
+<audio id="bgMusic" loop>
+<source src="mer _ track 2 giấc mơ từng rất thơ (ý thơ người ví em là ánh trăng lẻ loi...) ft Quang Huy - mer.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="envelope-wrapper" onclick="toggleLetter()">
-        <div class="envelope">
-            <div class="letter">
-                <div class="letter-content">
-                    <b>Valentine này dành riêng cho chị 🌸</b>
-                    Có những điều em không nói thường xuyên, nhưng hôm nay em muốn viết ra để chị biết…
-                    <br><br>
-                    Cảm ơn chị vì đã luôn ở đó — lắng nghe em, che chở em theo cách dịu dàng nhất.
-                    <br><br>
-                    Với em, chị không chỉ là người thân, mà còn là chỗ dựa bình yên giữa cuộc sống.
-                    <br><br>
-                    Em mong chị luôn cười thật nhiều, luôn được yêu thương thật nhiều.
-                    <br><br>
-                    <b>Valentine hạnh phúc nhé chị 💖<br>
-                    Em thương chị rất nhiều.</b>
-                </div>
+<div class="envelope-wrapper" onclick="toggleLetter()">
+    <div class="envelope">
+        <div class="letter">
+            <div class="letter-content">
+                <b>Valentine này dành riêng cho chị 🌸</b>
+                Có những điều em không nói thường xuyên, nhưng hôm nay em muốn viết ra để chị biết…
+                <br><br>
+                Cảm ơn chị vì đã luôn ở đó — lắng nghe em, che chở em theo cách dịu dàng nhất.
+                <br><br>
+                Với em, chị không chỉ là người thân, mà còn là chỗ dựa bình yên giữa cuộc sống.
+                <br><br>
+                Em mong chị luôn cười thật nhiều, luôn được yêu thương thật nhiều.
+                <br><br>
+                <b>Valentine hạnh phúc nhé chị 💖<br>
+                Em thương chị rất nhiều.</b>
             </div>
         </div>
-        <div class="hint">Bấm vào phong bì để mở thư 💕</div>
     </div>
+    <div class="hint">Bấm vào phong bì để mở thư 💕</div>
+</div>
 
-    <script>
-        function toggleLetter() {
-            const wrapper = document.querySelector(".envelope-wrapper");
-            wrapper.classList.toggle("open");
+<script>
+function toggleLetter() {
+    const wrapper = document.querySelector(".envelope-wrapper");
+    wrapper.classList.toggle("open");
 
-            const music = document.getElementById("bgMusic");
-            if (wrapper.classList.contains("open")) {
-                music.play().catch(e => console.log("Yêu cầu tương tác người dùng để phát nhạc"));
-            } else {
-                music.pause();
-            }
-        }
+    const music = document.getElementById("bgMusic");
+    if (wrapper.classList.contains("open")) {
+        music.play().catch(() => {});
+    } else {
+        music.pause();
+        music.currentTime = 0;
+    }
+}
 
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            const icons = ["❤️","💖","💗","🌸","✨","🌹"];
-            heart.innerText = icons[Math.floor(Math.random()*icons.length)];
-            heart.style.left = Math.random()*100 + "vw";
-            heart.style.fontSize = (Math.random()*15+15) + "px";
-            heart.style.animationDuration = (Math.random()*3+5) + "s";
-            heart.style.opacity = Math.random();
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    const icons = ["❤️","💖","💗","🌸","✨","🌹"];
+    heart.innerText = icons[Math.floor(Math.random()*icons.length)];
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*15+15) + "px";
+    heart.style.animationDuration = (Math.random()*3+5) + "s";
+    heart.style.opacity = Math.random();
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
 
-        setInterval(createHeart, 300);
-    </script>
+setInterval(createHeart, 400);
+</script>
 
 </body>
 </html>
