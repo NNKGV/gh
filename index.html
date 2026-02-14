@@ -81,10 +81,11 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 94%;
-    height: 190px; /* cao hơn */
+    min-height: 200px;   /* dùng min-height thay vì height */
+    max-height: 70vh;    /* không vượt màn hình */
     background: var(--paper-color);
     border-radius: 10px;
-    padding: 25px;
+    padding: 30px;
     box-sizing: border-box;
     transition: 0.7s ease;
     z-index: 2;
@@ -92,11 +93,9 @@ body {
     opacity: 0;
     visibility: hidden;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    overflow-y: auto;   /* nếu dài sẽ có scroll nhẹ */
 }
+
 
 .letter-content {
     font-size: 15px;
@@ -117,12 +116,12 @@ body {
 
 .envelope-wrapper.open .letter {
     bottom: 90px;
-    height: 320px;   /* lớn hơn khi mở */
     opacity: 1;
     visibility: visible;
     z-index: 10;
     box-shadow: 0 20px 40px rgba(0,0,0,0.35);
 }
+
 
 /* ===== TIM BAY ===== */
 .heart {
