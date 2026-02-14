@@ -1,159 +1,178 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine Love Letter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Love Letter for Sister</title>
+    <style>
+        /* 1. NỀN VÀ CƠ BẢN */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
 
-<style>
+        /* 2. PHONG BÌ */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
 
-/* =========================
-   1. BODY
-========================= */
-html, body{
-    margin:0;
-    height:100%;
-    overflow-x:hidden; /* CHẶN TRÀN NGANG */
-}
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
 
-body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    font-family:'Segoe UI', sans-serif;
-}
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #ff4d6d; /* Màu đỏ chủ đạo của phong bì */
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
 
-/* =========================
-   2. PHONG BÌ
-========================= */
-.envelope{
-    position:relative;
-    width:320px;
-    height:220px;
-    background:#ff4d6d;
-    cursor:pointer;
-    transition:transform 0.5s;
-    overflow:hidden; /* tránh tràn */
-    border-radius:10px;
-}
+        /* Nắp thư (Top Flap) */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 4;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid #ff1e56; /* Màu nắp thư */
+            transform-origin: top;
+            transition: transform 0.5s ease-in-out;
+        }
 
-/* Nắp thư */
-.envelope::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:0;
-    border-left:160px solid transparent;
-    border-right:160px solid transparent;
-    border-bottom:110px solid #ff1e56;
-    transform-origin:top;
-    transition:transform 1s ease;
-    z-index:2;
-}
+        /* Mặt trước phong bì (Tạo hình túi) */
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            width: 0;
+            height: 0;
+            border-left: 150px solid #ff758c;
+            border-right: 150px solid #ff758c;
+            border-bottom: 100px solid #ff5c7a;
+            bottom: 0;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
 
-/* =========================
-   3. TỜ GIẤY
-========================= */
-.letter{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:white;
-    padding:20px;
-    box-sizing:border-box;
-    transform:translateY(100%);
-    transition:transform 1s ease;
-    text-align:center;
-    font-size:16px;
-    color:#ff4d6d;
-    border-radius:5px;
-    overflow-y:auto;
-}
+        /* 3. BỨC THƯ */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background: white;
+            z-index: 2;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: transform 0.6s ease-in-out;
+            transition-delay: 0s; /* Mặc định chưa có delay */
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #d90429;
+            font-size: 14px;
+            line-height: 1.4;
+            overflow-y: auto;
+        }
 
-/* Khi mở */
-.envelope.open::before{
-    transform:rotateX(180deg);
-}
+        .letter b {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-.envelope.open .letter{
-    transform:translateY(-120%);
-}
+        /* 4. TRẠNG THÁI MỞ */
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 1; /* Khi mở thì nằm ra phía sau */
+        }
 
-/* =========================
-   4. TIM BAY
-========================= */
-.heart{
-    position:fixed; /* đổi sang fixed */
-    bottom:-20px;
-    font-size:20px;
-    animation:float linear forwards;
-    color:white;
-    pointer-events:none;
-}
+        .envelope-wrapper.open .letter {
+            transform: translateY(-130px); /* Đẩy thư lên trên */
+            transition-delay: 0.4s; /* Chờ nắp mở xong mới trồi lên */
+            height: 250px; /* Kéo dài bức thư khi mở */
+            z-index: 5; /* Hiện lên trên cùng */
+        }
 
-@keyframes float{
-    0%{
-        transform:translateY(0) scale(1);
-        opacity:1;
-    }
-    100%{
-        transform:translateY(-110vh) scale(1.5);
-        opacity:0;
-    }
-}
+        /* 5. TIM BAY */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 20px;
+            animation: float linear forwards;
+            color: white;
+            pointer-events: none;
+            z-index: 999;
+        }
 
-</style>
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="envelope" onclick="openLetter()">
-    <div class="letter">
-        <b>Valentine năm nay, em muốn gửi đến chị những lời chúc đặc biệt nhất.</b>
-        <br><br>
-        Có thể Valentine thường dành cho các cặp đôi, nhưng với em, đây còn là dịp để nói lời cảm ơn đến người luôn yêu thương và quan tâm em nhiều như chị.
-        <br><br>
-        Cảm ơn chị vì đã luôn ở bên, lắng nghe những câu chuyện vụn vặt của em, cho em lời khuyên mỗi khi em bối rối, và cả những lần âm thầm bảo vệ em nữa.
-        <br><br>
-        Chị không chỉ là chị gái, mà còn là người bạn, là chỗ dựa, là người khiến em cảm thấy gia đình mình thật ấm áp.
-        <br><br>
-        Valentine này, em chúc chị luôn xinh đẹp, hạnh phúc và sớm gặp được người yêu thương chị thật lòng.
-        <br><br>
-        <b>Yêu chị nhiều 💕</b>
+    <div class="envelope-wrapper" onclick="toggleLetter()">
+        <div class="envelope">
+            <div class="letter">
+                <b>Gửi Chị Gái Yêu Quý! 💕</b>
+                Valentine năm nay, em muốn gửi đến chị những lời chúc đặc biệt nhất.
+                <br><br>
+                Cảm ơn chị vì đã luôn ở bên, lắng nghe những câu chuyện vụn vặt và cho em lời khuyên mỗi khi em bối rối.
+                <br><br>
+                Chị không chỉ là chị gái, mà còn là người bạn, là chỗ dựa ấm áp nhất của em.
+                <br><br>
+                Chúc chị luôn xinh đẹp, hạnh phúc và sớm gặp được "hoàng tử" của đời mình nhé!
+                <br><br>
+                <b>Yêu chị rất nhiều!</b>
+            </div>
+        </div>
     </div>
-</div>
 
-<script>
+    <script>
+        // Mở/Đóng thư
+        function toggleLetter() {
+            document.querySelector(".envelope-wrapper").classList.toggle("open");
+        }
 
-/* MỞ THƯ */
-function openLetter(){
-    document.querySelector(".envelope").classList.toggle("open");
-}
+        // Tạo hiệu ứng tim bay
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            
+            // Random icon tim
+            const heartTypes = ["❤️", "💖", "💗", "💓", "✨"];
+            heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
 
-/* TẠO TIM */
-function createHeart(){
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💗";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (Math.random() * 10 + 15) + "px";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            heart.style.opacity = Math.random();
 
-    /* dùng % thay vì vw */
-    heart.style.left = Math.random() * 100 + "%";
+            document.body.appendChild(heart);
 
-    /* thời gian bay ngẫu nhiên */
-    heart.style.animationDuration = (3 + Math.random()*3) + "s";
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
 
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },6000);
-}
-
-/* mỗi 400ms tạo 1 tim */
-setInterval(createHeart,400);
-
-</script>
+        setInterval(createHeart, 300);
+    </script>
 
 </body>
 </html>
