@@ -39,22 +39,24 @@
     }
 
     .letter{
-        position:absolute;
-        width:280px;
-        height:180px;
-        background:white;
-        top:20px;
-        left:20px;
-        padding:20px;
-        box-sizing:border-box;
-        border-radius:10px;
-        font-size:15px;
-        line-height:1.6;
-        color:#444;
-        transform:translateY(40px);
-        opacity:0;
-        transition:0.8s;
+    position:absolute;
+    width:85%;              /* chiếm 85% phong thư */
+    height:75%;
+    background:white;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, 40px);
+    padding:35px;
+    box-sizing:border-box;
+    border-radius:18px;     /* bo góc mềm hơn */
+    font-size:18px;
+    line-height:1.8;
+    color:#444;
+    opacity:0;
+    transition:0.8s;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);  /* bóng đẹp hơn */
     }
+
 
     .open::before{
         transform:rotateX(180deg);
